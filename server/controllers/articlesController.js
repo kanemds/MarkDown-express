@@ -1,8 +1,8 @@
 
 
-const homepage = ( req, res) => {
+const articles = ( req, res) => {
   try {
-    res.render('index', { title: "Home Page"})
+    res.render('articles', { title: "articles"})
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" })
   }
@@ -10,5 +10,5 @@ const homepage = ( req, res) => {
 
 
 module.exports = {
-  homepage
+  articles
 }
