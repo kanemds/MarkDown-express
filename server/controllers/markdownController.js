@@ -1,8 +1,12 @@
 
-
 const homepage = ( req, res) => {
   try {
-    res.render('index', { title: "Home Page"})
+    const articles = [{
+      title: 'Test',
+      createdAt: new Date(),
+      description: "Test"
+    }]
+    res.render('index', { articles: articles})
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" })
   }

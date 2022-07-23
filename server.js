@@ -1,15 +1,22 @@
 const express = require('express')
+require('dotenv').config();
 const app = express()
-const PORT = 3000
-const markdown = require('./server/routes/markdown.js')
-const articles = require('./server/routes/articles.js')
+const PORT = process.env.PORT || 3000
+
+
+const markdownRouter = require('./server/routes/markdown.js')
+const articlesRouter = require('./server/routes/articles.js')
+
+
+
 
 app.set('view engine', 'ejs')
+app.use(express.urlencoded({extended:true}))
+
+app.use('/markdown', markdownRouter)
+app.use('/markdown/articles', articlesRouter)
 
 
-app.use('/markdown', markdown)
-
-app.use('/markdown/articles', articles)
 
 app.listen(PORT, () => {
   console.log(`Listening port: ${PORT}`)
