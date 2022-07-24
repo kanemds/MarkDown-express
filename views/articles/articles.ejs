@@ -26,6 +26,10 @@
           <a href="/markdown/articles/<%= article.slug %>" class=" btn btn-primary btn-dark"> 
             Read More 
           </a>
+          <!-- note if using  <a href=""></a> for methodOverride for delete will delete everything in database  -->
+          <form action="/markdown/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
         </div>
       </div>
     <% } %> 
