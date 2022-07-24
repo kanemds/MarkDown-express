@@ -1,13 +1,11 @@
 require('../models/database')
+
 const Article = require('../models/articles')
 
-const allArticles = ( req, res) => {
+const allArticles = async ( req, res) => {
   try {
-    const articles = [{
-      title: 'Test',
-      createdAt: new Date(),
-      description: "Test"
-    }]
+    // require Article modle and find() <--find all
+    const articles = await Article.find().sort({ createdAt: 'desc' })
     res.render('./articles/articles', { articles: articles})
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" })
@@ -27,9 +25,9 @@ const articleId = async ( req, res ) => {
   const article = await Article.findById(req.params.id)
   if ( article == null ) {
     res.redirect('/markdown/articles')
-  }
+  } else {
   res.render('./articles/show', { article: article })
-
+  }
 }
 
 const postNewArticle = async ( req, res) => {
