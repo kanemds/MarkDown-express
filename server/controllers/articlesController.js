@@ -22,7 +22,7 @@ const newPage = ( req, res) => {
 
 const articleId = async ( req, res ) => {
   // res.send( req.params.id)  is pure id mpt Obj[id]
-  const article = await Article.findById(req.params.id)
+  const article = await Article.findOne( {slug: req.params.slug } )
   if ( article == null ) {
     res.redirect('/markdown/articles')
   } else {
@@ -38,18 +38,23 @@ const postNewArticle = async ( req, res) => {
   })
   try {
     article = await article.save()
-    res.redirect(`/markdown/articles/${article.id}`)
+    res.redirect(`/markdown/articles/${article.slug}`)
   } catch (e) {
     // if it fails the prev will save since input the {article} inside
     // also need to go to the form value:value
     res.render('./articles/new', { article: article })
   }
- 
+}
+
+const deleteId = async (req, res) => {
+  await Article.findByIdAndDelete(req.params.id)
+  res.redirect('/markdown/articles')
 }
 
 module.exports = {
   allArticles,
   newPage,
   postNewArticle,
-  articleId
+  articleId,
+  deleteId
 }
